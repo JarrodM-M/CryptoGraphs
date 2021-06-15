@@ -1,14 +1,49 @@
+#mainGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 30% 20% 50%;
+}
+
 h1{
     text-align: center;
     font-size: 250%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: tomato;
     background-color: rgba(176, 224, 230, 0.788);
-    border: 2px solid peachpuff; 
+    border: 2px solid peachpuff;
 }
-div{
-    float: left;
-    padding: 25px;
-    background: rgba(176, 224, 230, 0.788);
-    
+
+p{
+    text-align: center;
+    font-size: 150%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: tomato;
+    background-color: rgba(176, 224, 230, 0.788);
+    border: 2px solid peachpuff;
+
+}
+#scrill{
+    grid-column: 1/4;
+    grid-row: 1/2;
+}
+
+#p1{
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+#p2{
+    grid-row: 3/4;
+}
+
+#solgraph{
+    width: 90%;
+}
+
+#nanograph{
+    width: 90%;
+}
+
+#ethgraph{
+    width: 90%;
 }

@@ -4,13 +4,45 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h1 id="title" title="Get that scrilla">Coin Compare</h1>
-        <!-- Drop down Boxes underneath for Time Ref Choice (Hourly,Daily,Weekly,Monthly Yearly, and Currency Type)-->
-        <div>Time Reference</div>
-        <!-- Drop down boxes to select Coin1, Coin2, Coin3-->
-        <!-- Under each coin list Price(live), % Change in Price(based on Time Ref Choice), % Change in Social Volume (Time Ref), Market Cap (live),
-        Market Volume(total value of all trades based on Time Ref), Marker Dominance-->
-        <!-- graphs underneath each coin price/time. Price value min/max displayed on graph = the AVG price value over time ref period -/+ 25% -->
+
+        <div id="mainGrid">
+
+            <h1 id="scrill" title="Get that scrilla">Coin Compare</h1>
+            
+            <p id="p1">Current BTC in CAD: 
+            <span id=btc></span>
+            </p>
+            
+            <p id="p2">Nano
+            </br>
+            <span id=nano></span>
+            </br>
+            <img src="/coding/cryptographs/img/nanograph.png" id="nanograph" />
+            </p>
+            
+            <p id="p2">Etherium
+            </br>
+            <span id=eth></span>
+            </br>
+            <img src="/coding/cryptographs/img/ethgraph.png" id="ethgraph" />
+            </p>
+            
+            <p id="p2">Solana
+            </br>
+            <span id=sol></span>
+            </br>
+            <img src="/coding/cryptographs/img/solgraph.png" id="solgraph" />
+            </p>
+
+        </div>
+
+
         <script src="index.js"></script>
+        
+    <!-- Drop down Boxes underneath for Time Ref Choice (Hourly,Daily,Weekly,Monthly Yearly, and Currency Type)-->
+    <!-- Drop down boxes to select Coin1, Coin2, Coin3-->
+    <!-- Under each coin list Price(live), % Change in Price(based on Time Ref Choice), % Change in Social Volume (Time Ref), Market Cap (live),
+    Market Volume(total value of all trades based on Time Ref), Marker Dominance-->
+    <!-- graphs underneath each coin price/time. Price value min/max displayed on graph = the AVG price value over time ref period -/+ 25% -->
     </body>
 </html>
