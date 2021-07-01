@@ -1,7 +1,10 @@
 #mainGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 30% 20% 50%;
+}
+
+body{
+    background-color: lightgrey;
 }
 
 h1{
@@ -9,7 +12,6 @@ h1{
     font-size: 250%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: tomato;
-    background-color: rgba(176, 224, 230, 0.788);
     border: 2px solid peachpuff;
 }
 
@@ -18,32 +20,47 @@ p{
     font-size: 150%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: tomato;
-    background-color: rgba(176, 224, 230, 0.788);
+    
     border: 2px solid peachpuff;
 
 }
+
+div{
+    background-color: rgba(176, 224, 230, 0.788);
+}
+
 #scrill{
     grid-column: 1/4;
-    grid-row: 1/2;
 }
 
 #p1{
     grid-column: 2/3;
-    grid-row: 2/3;
 }
 
-#p2{
-    grid-row: 3/4;
+
+#nano-wrapper{
+   
+    grid-column: 1/2;
 }
 
-#solgraph{
-    width: 90%;
+#eth-wrapper{
+  
+    grid-column: 2/3;
+}
+
+#sol-wrapper{
+  
+    grid-column: 3/4;
 }
 
 #nanograph{
-    width: 90%;
+    height: 200px;
 }
 
 #ethgraph{
-    width: 90%;
+    height: 200px;
+}
+
+#solgraph{
+   height: 200px;
 }
