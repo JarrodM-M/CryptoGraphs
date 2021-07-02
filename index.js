@@ -1,12 +1,11 @@
             
             
             let coin = "bitcoin";
-            let middle = "/market_chart?vs_currency=";
             let currency = "cad";
             let days = "&days=1";
             let interval = "&interval=hourly";
             
-            let link = "https://api.coingecko.com/api/v3/coins/" + coin + middle + currency + days + interval;
+            let link = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + days + interval;
             
             console.log(link);
             
