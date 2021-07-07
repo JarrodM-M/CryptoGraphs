@@ -4,7 +4,6 @@
             let currency = "cad";
             let days = "&days=1";
             let interval = "&interval=hourly";
-            
             let link = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + days + interval;
             
             console.log(link);
@@ -60,10 +59,40 @@
             async function graphdatamarketprice(){
                 const response = await fetch (link);
                 const data = await response.json();
-                
-                console.log(data.prices[24]);
+                const interval = data.prices;
+                interval.forEach(tnp => {
+                   const time = tnp[0];
+                   const price = tnp[1];
+                   console.log(time, price);
+                });
+               
+
             }
             graphdatamarketprice();
+
+            async function cryptochart(){
+                const ctx = document.getElementById('myChart');
+                const myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                            label: 'Price',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },    
+                });
+            }
+            cryptochart();
+            
+            
 
 
 
