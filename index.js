@@ -4,9 +4,8 @@
             let currency = "cad";
             let days = "&days=1";
             let interval = "&interval=hourly";
-            let link = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + days + interval;
+            let coingeckolink = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + days + interval;
             
-            console.log(link);
             
             let coins = ["bitcoin", "ethereum", "nano"];
             let currencies = ["cad", "usd"];
@@ -14,17 +13,30 @@
             
             const xtime = [];
             const yprice = [];
+            console.log(xtime, yprice);
+
+// maybe foreachloop to get xtime into the timestamp of unixapi link
+            let unixapi = "https://showcase.api.linx.twenty57.net/UnixTime/fromunix?timestamp=" 
+           
+ 
+// --------------------------------------------------------------------------------------------
+// Figure out what makes most sense. For loops or foreach being pushed then grabbed and inserted into masterlink object to use in generating graph data.   
+// Foreach "tunnel" works but it doesn't seem to make sense to use,even though it will generate all possibilities. 
+// 
+
+coins.forEach(coinlist => {
+                currencies.forEach(currencylist => {
+                    console.log("https://api.coingecko.com/api/v3/coins/" + coinlist + "/market_chart?vs_currency=" + currencylist + days + interval)
+                    });
+            });
 
             
- 
-
-            coins.forEach(coinlist => {
-                console.log("https://api.coingecko.com/api/v3/coins/" + coinlist + "/market_chart?vs_currency=" + currency + days + interval)
-            });
             for(let i=0; i<coins.length; i++){
                 console.log("https://api.coingecko.com/api/v3/coins/" + coins[i] + "/market_chart?vs_currency=" + currency + days + interval);
             }
-
+//---------------------------------------------------------------------------------------------
+           
+           
             async function getBTC(){
                 const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=cad");
                 const data = await response.json();
@@ -67,7 +79,7 @@
             
             
             async function graphdatamarketprice(){
-                const response = await fetch (link);
+                const response = await fetch (coingeckolink);
                 const data = await response.json();
                 const table = data.prices;
                 table.forEach(tnp => {
