@@ -78,11 +78,9 @@
                    console.log(time, price)
                 });
              };
-            graphdatamarketprice();
+            
 
-          
-
-            async function cryptochart(){
+             async function cryptochart(){
                 await graphdatamarketprice();
                 const ctx = document.getElementById('myChart');
                 const myChart = new Chart(ctx, {
