@@ -4,69 +4,74 @@
             let currency = "cad";
             let days = "&days=1";
             let interval = "&interval=hourly";
-            let coingeckolink = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + days + interval;
-            
+            let coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + days + interval;
+            let unixapi = "https://showcase.api.linx.twenty57.net/UnixTime/fromunix?timestamp="
             
             let coins = ["bitcoin", "ethereum", "nano"];
             let currencies = ["cad", "usd"];
             let intervals = ["hourly", "daily", "monthly", 'yearly'];
             
+
             const xtime = [];
             const yprice = [];
             const unixlink = [];
-            
+            const truetimearray = [];
             
 
 // maybe foreachloop to get xtime into the timestamp of unixapi link
-            let unixapi = "https://showcase.api.linx.twenty57.net/UnixTime/fromunix?timestamp="
-
             
-            async function realtime(){
-                await graphdatamarketprice();
-                xtime.forEach(unixcode => {
-                    const fulllink = unixapi + unixcode;
-                    unixlink.push(fulllink);
-                    
-                });
-            };
-            
-            
-            
-
-            async function test(){
-                await realtime();
-                unixlink.forEach(timefetch => {
-                    const truetime = timefetch.length-3
-                    console.log(truetime)
-                    
-
-                });
-            
-            };
-            test();
-            
-
-
-            async function graphdatamarketprice(){
-                const response = await fetch (coingeckolink);
+            async function graphdatafetch(){
+                const response = await fetch (coingeckoapi);
                 const data = await response.json();
                 const table = data.prices;
+               
                 table.forEach(tnp => {
-                   const time = tnp[0];
-                   xtime.push(time); 
-                   const price = tnp[1];
-                   yprice.push(price);
+                    const time = tnp[0];
+                    xtime.push(time); 
+                    const price = tnp[1];
+                    yprice.push(price);
+
                 });
-             };
+            };
             
 
+            async function converttime(){
+                await graphdatafetch();
+
+                xtime.forEach(unixcode => {
+                    const fulllink = unixapi + unixcode;
+                    unixlink.push(fulllink.substring(0,fulllink.length-3));
+                    
+                });
+            };
+            
+            
+            async function gettruetime(){
+                await converttime(); 
+
+                for(let x=0; x<unixlink.length; x++){
+                    console.log("current unixlink element is " + x);
+                    callunixapi(unixlink[x]);
+                }
+                
+            };
+            
+
+
+            async function callunixapi(currentLink){
+                const response = await fetch (currentLink);
+                const data = await response.json();
+                truetimearray.push(data);
+            };
+
+
              async function cryptochart(){
-                await graphdatamarketprice();
+                await gettruetime();
                 const ctx = document.getElementById('myChart');
                 const myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: truetime,
+                        labels: truetimearray,
                         datasets: [{
                             label: 'Prices',
                             data: yprice,
@@ -81,6 +86,7 @@
                     },    
                 });
             }
+            cryptochart();
             
 
             // --------------------------------------------------------------------------------------------
