@@ -64,7 +64,6 @@
                     const fulllink = unixapi + unixcode;
                     unixlink.push(fulllink.substring(0,fulllink.length-3));
                 });
-                console.log(unixlink);
             };
             
             
@@ -111,7 +110,7 @@
                         }]
                     },    
                 });
-
+/*
                 const ctx1 = document.getElementById('myChart1');
                 const myChart1 = new Chart(ctx1, {
                     type: 'line',
@@ -149,6 +148,7 @@
                         }]
                     },    
                 });
+                */
             }
             cryptochart();
             
@@ -177,7 +177,7 @@ for(let i=0; i<coins.length; i++){
             
 
     // these functions grab the current price of each currency and send assign it an elementID to be used in the html        
-            async function getBTC(){
+          /*  async function getBTC(){
                 const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=cad");
                 const data = await response.json();
                 const { cad } = data.bitcoin;
@@ -186,6 +186,7 @@ for(let i=0; i<coins.length; i++){
                 console.log(cad);
             }
             getBTC();
+            */
 
             async function getNANO(){
                 const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=cad");
@@ -197,6 +198,7 @@ for(let i=0; i<coins.length; i++){
             }
             getNANO();
 
+            /*
             async function getETH(){
                 const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=cad");
                 const data = await response.json();
@@ -216,6 +218,7 @@ for(let i=0; i<coins.length; i++){
                 console.log(cad);
             }
             getSOL();
+            */
 
             
             

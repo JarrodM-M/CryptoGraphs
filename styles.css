@@ -38,19 +38,9 @@ div{
 }
 
 
-#nano-wrapper{
+#chart-wrapper{
    
-    grid-column: 1/2;
-}
-
-#eth-wrapper{
-  
     grid-column: 2/3;
-}
-
-#sol-wrapper{
-  
-    grid-column: 3/4;
 }
 
 #nanograph{
