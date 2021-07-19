@@ -64,6 +64,7 @@
                     const fulllink = unixapi + unixcode;
                     unixlink.push(fulllink.substring(0,fulllink.length-3));
                 });
+                
             };
             
             
@@ -71,12 +72,13 @@
             async function gettruetime(){
                 await converttime();
                 
-                unixlink.forEach(eachlink => {
-                    callunixapi(eachlink);
-                });
-
-                /*for(let x=0; x<unixlink.length; x++){
+                for(let x=0; x<unixlink.length; x++){
                     callunixapi(unixlink[x]);
+                
+                };
+
+                /*unixlink.forEach(eachlink => {
+                    callunixapi(eachlink));
                 }*/
                 
             };
@@ -87,11 +89,17 @@
                 const response = await fetch (currentLink);
                 const data = await response.json();
                 truetimearray.push(data.substring(11,data.length-3));
+                console.log(response);
             };
+            gettruetime();
+            console.log(unixlink);
+            
+            
             
     // this is the chartjs function
              async function cryptochart(){
                 await gettruetime();
+            
                 const ctx = document.getElementById('myChart');
                 const myChart = new Chart(ctx, {
                     type: 'line',
@@ -110,6 +118,10 @@
                         }]
                     },    
                 });
+                myChart.update();
+            }
+            //cryptochart();
+                
 /*
                 const ctx1 = document.getElementById('myChart1');
                 const myChart1 = new Chart(ctx1, {
@@ -149,8 +161,8 @@
                     },    
                 });
                 */
-            }
-            cryptochart();
+            
+            
             
 
             // --------------------------------------------------------------------------------------------
