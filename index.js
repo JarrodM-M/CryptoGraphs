@@ -98,7 +98,7 @@
                 await gettruetime(); 
             
                 const ctx = document.getElementById('myChart');
-                const cryptograph = new Chart(ctx,  {
+                const myChart = new Chart(ctx,  {
                     type: 'line',
                     data: {
                         labels: truetimearray,
@@ -117,9 +117,11 @@
                    
                     
                 });
+                setTimeout(function() { myChart.update(); },1050);
                 
             }
             cryptochart();
+            
             
                 
 /*
