@@ -38,14 +38,7 @@ div{
 }
 
 
-#chart-wrapper{
-   
-    grid-column: 2/3;
-}
 
-#nanograph{
-    height: 200px;
-}
 
 #ethgraph{
     height: 200px;

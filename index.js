@@ -64,7 +64,7 @@
                     const fulllink = unixapi + unixcode;
                     unixlink.push(fulllink.substring(0,fulllink.length-3));
                 });
-                
+                console.log(unixlink);
             };
             
             
@@ -89,22 +89,19 @@
                 const response = await fetch (currentLink);
                 const data = await response.json();
                 truetimearray.push(data.substring(11,data.length-3));
-                console.log(response);
             };
-            gettruetime();
-            console.log(unixlink);
             
             
             
     // this is the chartjs function
              async function cryptochart(){
-                await gettruetime();
+                await graphdatafetch(); 
             
                 const ctx = document.getElementById('myChart');
-                const myChart = new Chart(ctx, {
+                const cryptograph = new Chart(ctx,  {
                     type: 'line',
                     data: {
-                        labels: truetimearray,
+                        labels: xtime,
                         datasets: [{
                             label: 'Prices',
                             data: yprice,
@@ -116,11 +113,14 @@
                             ],
                             borderWidth: 1
                         }]
-                    },    
+                    },
+                   
+                    
                 });
-                myChart.update();
+                
             }
-            //cryptochart();
+            cryptochart();
+            
                 
 /*
                 const ctx1 = document.getElementById('myChart1');
