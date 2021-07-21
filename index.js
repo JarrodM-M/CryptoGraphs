@@ -72,8 +72,7 @@
                 await converttime();
                 
                 for(let x=0; x<unixlink.length; x++){
-                    callunixapi(unixlink[x]);
-                
+                    await callunixapi(unixlink[x]);
                 };
 
                 /*unixlink.forEach(eachlink => {
@@ -98,7 +97,7 @@
                 await gettruetime(); 
             
                 const ctx = document.getElementById('myChart');
-                const myChart = new Chart(ctx,  {
+                const cryptochart = new Chart(ctx,  {
                     type: 'line',
                     data: {
                         labels: truetimearray,
@@ -117,7 +116,6 @@
                    
                     
                 });
-                setTimeout(function() { myChart.update(); },1050);
                 
             }
             cryptochart();
