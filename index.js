@@ -92,6 +92,7 @@
                 
             };
             
+<<<<<<< Updated upstream
 
     // this function fetches the timestamp data from the UNIX api in order to be usable as the x axis in the chartJS
     // no longer needed
@@ -101,6 +102,39 @@
         
                 truetimearray.push(data.substring(11,data.length-3));
             };
+=======
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx,  {
+                    
+                    type: 'line',
+
+                    data: {
+                        labels: xtime,
+                        datasets: [{
+                            
+                            label: 'Prices',
+                            yAxisID: 'Prices',
+                            data: yprice,
+                            borderWidth: 3,
+                            borderJoinStyle: 'round',
+                            borderCapStyle: 'round',
+                            pointRadius: 0,
+                            pointHitRadius: 10,
+                            linetension: 0.2
+                        }]
+                    },
+
+                    options: {
+                        legend: {
+                            display: false
+                        }
+                        
+                    }                               
+                    
+                });
+                
+            }
+>>>>>>> Stashed changes
             
             
     // this is the chartjs function
