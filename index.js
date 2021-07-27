@@ -63,7 +63,7 @@
         
         
             
-
+/*
     // This Function finshes the UNIX time converter API link with each UNIX code that is fetched by the coingecko api in function graphdatafetch. 
     // The code gets shortened by 3 digits because the unix api will only read milliseconds and coingecko api generates in nanoseconds
     // no longer needed         
@@ -86,13 +86,12 @@
                     await callunixapi(unixlink[x]);
                 };
 
-                /*unixlink.forEach(eachlink => {
+                unixlink.forEach(eachlink => {
                     callunixapi(eachlink));
-                }*/
+                }
                 
             };
             
-<<<<<<< Updated upstream
 
     // this function fetches the timestamp data from the UNIX api in order to be usable as the x axis in the chartJS
     // no longer needed
@@ -102,9 +101,16 @@
         
                 truetimearray.push(data.substring(11,data.length-3));
             };
-=======
-                const ctx = document.getElementById('myChart').getContext('2d');
-                const myChart = new Chart(ctx,  {
+
+            */
+            
+            
+    // this is the chartjs function
+             async function cryptochart(){
+                await graphdatafetch(); 
+            
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx,  {
                     
                     type: 'line',
 
@@ -115,50 +121,29 @@
                             label: 'Prices',
                             yAxisID: 'Prices',
                             data: yprice,
-                            borderWidth: 3,
+                            borderWidth: 10,
                             borderJoinStyle: 'round',
                             borderCapStyle: 'round',
                             pointRadius: 0,
                             pointHitRadius: 10,
                             linetension: 0.2
+                        },
+                        {
+                            label: 'Market',
+                            yAxisID: 'Market',
+                            data: ymarket
                         }]
                     },
 
                     options: {
-                        legend: {
-                            display: false
+                        plugins :{
+                            legend: {},
+                            tooltip: {
+                                
+                            }
                         }
-                        
+                                                    
                     }                               
-                    
-                });
-                
-            }
->>>>>>> Stashed changes
-            
-            
-    // this is the chartjs function
-             async function cryptochart(){
-                await graphdatafetch(); 
-            
-                const ctx = document.getElementById('myChart');
-                const cryptochart = new Chart(ctx,  {
-                    type: 'line',
-                    data: {
-                        labels: xtime,
-                        datasets: [{
-                            label: 'Prices',
-                            data: yprice,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                   
                     
                 });
                 
