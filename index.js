@@ -6,11 +6,13 @@
             let interval = "hourly";
             let coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + "&days=" + days + "&interval=" + interval;
             let unixapi = "https://showcase.api.linx.twenty57.net/UnixTime/fromunix?timestamp=" // no longer needed
+            let coinlist ="https://api.coingecko.com/api/v3/coins/list"
             
             let coins = ["bitcoin", "ethereum", "nano"];
             let currencies = ["cad", "usd"];
             let intervals = ["hourly", "daily", "monthly", 'yearly'];
             let dayz = ["1", "7", "30", "365"]
+            
             
             const xtime = [];
             const yprice = [];
@@ -19,11 +21,47 @@
 
             const unixlink = []; // no longer needed
             const truetimearray = []; // no longer needed
-         
 
+
+            document.getElementById("menu-ctn").addEventListener('click', openCoinmenu);
+
+            function openCoinmenu(){
+
+                document.getElementById("dropdown").classList.toggle('active')
+            };
+         
+    // for grabbing coin ids 
+            async function listcoins(){
+                const response = await fetch (coinlist);
+                const data = await response.json();
+                console.log(data);
+            };
+            listcoins();
+
+/*
+    //coinlist button fucntion, toggle show and hide
+            function coinlistbutton(){
+                document.getElementById('Coindropdown').classList.toggle('show');
+            };
+    
+    // close dropdown
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')){
+                    const dropdowns = document.getElementsByClassName('dropdown-content');
+                    for (let i = 0; i < dropdowns.length; i++){
+                        const openDropdown = dropdowns[i]
+                        if (openDropdown.classList.contains('show')){
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+*/
+            
             
     // This function grabs the Xvalues (Time) and converts it from UNIX into a readable timestamp 
     // and grabs the Y values (price, marketcap, volume ) to be used in the chartJS canvas
+
             async function graphdatafetch(){
                 const response = await fetch (coingeckoapi);
                 const data = await response.json();
@@ -235,7 +273,7 @@ for(let i=0; i<coins.length; i++){
                 const data = await response.json();
                 const { cad } = data.nano;
                
-                document.getElementById("nano").textContent = cad;
+                document.getElementById("nano").textContent = "$" + cad;
                 console.log(cad);
             }
             getNANO();

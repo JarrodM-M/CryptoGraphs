@@ -7,6 +7,12 @@ body{
     background-color: lightgrey;
 }
 
+.container{
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left:auto;
+}
+
 h1{
     text-align: center;
     font-size: 250%;
@@ -15,19 +21,52 @@ h1{
     border: 2px solid peachpuff;
 }
 
-p{
-    text-align: center;
-    font-size: 150%;
+#nanomenu{
+    border: 2px solid rgba(255, 218, 185, 0.527);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: tomato;
     
-    border: 2px solid peachpuff;
+    
 
 }
 
-div{
+.dropbtn{
+    background-color: khaki;
+    color: darkgray;
+    padding: 16px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn{
     background-color: rgba(176, 224, 230, 0.788);
 }
+
+
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+.dropdown a:hover {background-color: #ddd;}
+  
+.show {display: block;}
+
 
 #scrill{
     grid-column: 1/4;
@@ -47,3 +86,35 @@ div{
 #solgraph{
    height: 200px;
 }
+
+#menu-ctn {
+    
+    padding-top: 0px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    transition: all 0.8s ease;
+
+}
+
+#menu-ctn:hover {
+
+    cursor: pointer;
+    background-color: rgba(255, 218, 185, 0.527);
+    
+
+}
+
+ul {
+    list-style: none;
+}
+
+#dropdown {
+    
+    display: none;
+  }
+
+#dropdown.active {
+    display:block
+}
+
