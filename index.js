@@ -22,41 +22,24 @@
             const unixlink = []; // no longer needed
             const truetimearray = []; // no longer needed
 
-
+// dropdown graph menu selector
             document.getElementById("menu-ctn").addEventListener('click', openCoinmenu);
-
+            
             function openCoinmenu(){
-
                 document.getElementById("dropdown").classList.toggle('active')
             };
+        
          
-    // for grabbing coin ids 
+    // for grabbing coin ids -- future upgrade
+    /* 
             async function listcoins(){
                 const response = await fetch (coinlist);
                 const data = await response.json();
                 console.log(data);
             };
             listcoins();
+    */
 
-/*
-    //coinlist button fucntion, toggle show and hide
-            function coinlistbutton(){
-                document.getElementById('Coindropdown').classList.toggle('show');
-            };
-    
-    // close dropdown
-            window.onclick = function(event) {
-                if (!event.target.matches('.dropbtn')){
-                    const dropdowns = document.getElementsByClassName('dropdown-content');
-                    for (let i = 0; i < dropdowns.length; i++){
-                        const openDropdown = dropdowns[i]
-                        if (openDropdown.classList.contains('show')){
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            }
-*/
             
             
     // This function grabs the Xvalues (Time) and converts it from UNIX into a readable timestamp 
