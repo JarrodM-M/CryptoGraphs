@@ -13,24 +13,17 @@
 
             <section>
                 <div class = "container">
-
+                    <select name="chartCoinid" id="chartCoinid" onchange="updatechart() , getBTC()" >
+                        <option value="bitcoin">Bitcoin</option>
+                        <option value="nano">Nano</option>
+                        <option value="ethereum">Ethereum</option>
+                      </select>
+                      <span id = bitcoinCurrentprice></span>
                 </div>
             </section>
 
-            <div class = "container"> 
-                
-                    <a id="menu-ctn">
-                        Nano
-                        <ul id="dropdown">
-                            <li>Bitcoin</li>
-                            <li>Ethereum</li>
-                            <li>Nano</li> 
-                        </ul>
-                    </a>
 
-                    </br>
-
-                    <span id = nano></span>
+                <span id = bitcoinCurrentprice></span>
                 
                 
                 <canvas id="myChart"></canvas>

@@ -1,3 +1,8 @@
+
+
+
+
+
             
             
             let coin = "nano";
@@ -6,9 +11,9 @@
             let interval = "hourly";
             let coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + "&days=" + days + "&interval=" + interval;
             let unixapi = "https://showcase.api.linx.twenty57.net/UnixTime/fromunix?timestamp=" // no longer needed
-            let coinlist ="https://api.coingecko.com/api/v3/coins/list"
+            let coinlist ="https://api.coingecko.com/api/v3/coins/list";
             
-            let coins = ["bitcoin", "ethereum", "nano"];
+            let coinIds = ["bitcoin", "ethereum", "nano"];
             let currencies = ["cad", "usd"];
             let intervals = ["hourly", "daily", "monthly", 'yearly'];
             let dayz = ["1", "7", "30", "365"]
@@ -22,13 +27,16 @@
             const unixlink = []; // no longer needed
             const truetimearray = []; // no longer needed
 
-// dropdown graph menu selector
-            document.getElementById("menu-ctn").addEventListener('click', openCoinmenu);
-            
-            function openCoinmenu(){
-                document.getElementById("dropdown").classList.toggle('active')
+// change the coingecko api link
+
+            function changeApilink(){
+                coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + document.getElementById('chartCoinid').value + 
+                "/market_chart?vs_currency=" + currency + "&days=" + days + "&interval=" + interval;
             };
+
+
         
+
          
     // for grabbing coin ids -- future upgrade
     /* 
@@ -46,6 +54,7 @@
     // and grabs the Y values (price, marketcap, volume ) to be used in the chartJS canvas
 
             async function graphdatafetch(){
+                await changeApilink();
                 const response = await fetch (coingeckoapi);
                 const data = await response.json();
                 const pricetable = data.prices;
@@ -66,7 +75,6 @@
                     yprice.push(price);
                     
                 });
-                console.log(xtime);
 
                 markettable.forEach(tnp1 => {
                     const market = tnp1[1];
@@ -84,7 +92,94 @@
         
         
             
-/*
+
+            
+            
+    // this is the chartjs function
+             async function cryptochart(){
+                await graphdatafetch(); 
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx,  {
+                    
+                    type: 'line',
+
+                    data: {
+                        labels: xtime,
+                        datasets: [{
+                            
+                            label: 'Prices',
+                            yAxisID: 'Prices',
+                            data: yprice,
+                            borderWidth: 10,
+                            borderJoinStyle: 'round',
+                            borderCapStyle: 'round',
+                            pointRadius: 0,
+                            pointHitRadius: 10,
+                            linetension: 0.2
+                        }]
+                    },
+
+                    options: {
+                        plugins :{
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                
+                            }
+                        }
+                                                    
+                    }                               
+                    
+                });
+            };
+            cryptochart();
+            
+            
+            
+            
+                
+
+
+    // these functions grab the current price of each currency and send assign it an elementID to be used in the html        
+            async function getBTC(){
+                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + document.getElementById('chartCoinid').value
+                + "&vs_currencies=cad");
+                const data = await response.json();
+                const cad = data;
+
+                document.getElementById('bitcoinCurrentprice').textContent = cad;
+                console.log(data);  
+            };
+            getBTC();
+            
+           
+
+            async function getNANO(){
+                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=cad");
+                const data = await response.json();
+                const { cad } = data.nano;
+               
+                document.getElementById("nanoCurrentprice").textContent = "$" + cad;
+                console.log(cad);
+            };
+            
+            
+
+            
+            async function getETH(){
+                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=cad");
+                const data = await response.json();
+                const { cad } = data.ethereum;
+
+                document.getElementById("ethereumCurrentprice").textContent = cad;
+                console.log(cad);
+            };
+            
+
+            
+
+            /*
     // This Function finshes the UNIX time converter API link with each UNIX code that is fetched by the coingecko api in function graphdatafetch. 
     // The code gets shortened by 3 digits because the unix api will only read milliseconds and coingecko api generates in nanoseconds
     // no longer needed         
@@ -123,164 +218,6 @@
                 truetimearray.push(data.substring(11,data.length-3));
             };
 
-            */
-            
-            
-    // this is the chartjs function
-             async function cryptochart(){
-                await graphdatafetch(); 
-            
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx,  {
-                    
-                    type: 'line',
-
-                    data: {
-                        labels: xtime,
-                        datasets: [{
-                            
-                            label: 'Prices',
-                            yAxisID: 'Prices',
-                            data: yprice,
-                            borderWidth: 10,
-                            borderJoinStyle: 'round',
-                            borderCapStyle: 'round',
-                            pointRadius: 0,
-                            pointHitRadius: 10,
-                            linetension: 0.2
-                        },
-                        {
-                            label: 'Market',
-                            yAxisID: 'Market',
-                            data: ymarket
-                        }]
-                    },
-
-                    options: {
-                        plugins :{
-                            legend: {},
-                            tooltip: {
-                                
-                            }
-                        }
-                                                    
-                    }                               
-                    
-                });
-                
-            }
-            cryptochart();
-            
-            
-                
-/*
-                const ctx1 = document.getElementById('myChart1');
-                const myChart1 = new Chart(ctx1, {
-                    type: 'line',
-                    data: {
-                        labels: truetimearray,
-                        datasets: [{
-                            label: 'Market Cap',
-                            data: ymarket,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                            ],
-                            borderWidth: 1
-                        }]
-                    },    
-                });
-
-                const ctx2 = document.getElementById('myChart2');
-                const myChart2 = new Chart(ctx2, {
-                    type: 'line',
-                    data: {
-                        labels: truetimearray,
-                        datasets: [{
-                            label: 'Volume',
-                            data: yvolume,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                            ],
-                            borderWidth: 1
-                        }]
-                    },    
-                });
-                */
-            
-            
-            
-
-            // --------------------------------------------------------------------------------------------
-
-// Figure out what makes most sense. For loops or foreach being pushed then grabbed and inserted into masterlink object to use in generating graph data.   
-// Foreach "tunnel" works but it doesn't seem to make sense to use,even though it will generate all possibilities. 
-// 
-
-coins.forEach(coinlist => {
-    currencies.forEach(currencylist => {
-        console.log("https://api.coingecko.com/api/v3/coins/" + coinlist + "/market_chart?vs_currency=" + currencylist + days + interval)
-        });
-});
-
-
-for(let i=0; i<coins.length; i++){
-    console.log("https://api.coingecko.com/api/v3/coins/" + coins[i] + "/market_chart?vs_currency=" + currency + days + interval);
-}
-
-
-
-
-            // -----------------------------------------------------------------------------------------------------------------------------------
-            
-
-    // these functions grab the current price of each currency and send assign it an elementID to be used in the html        
-          /*  async function getBTC(){
-                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=cad");
-                const data = await response.json();
-                const { cad } = data.bitcoin;
-
-                document.getElementById('btc').textContent = cad;
-                console.log(cad);
-            }
-            getBTC();
-            */
-
-            async function getNANO(){
-                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=cad");
-                const data = await response.json();
-                const { cad } = data.nano;
-               
-                document.getElementById("nano").textContent = "$" + cad;
-                console.log(cad);
-            }
-            getNANO();
-
-            /*
-            async function getETH(){
-                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=cad");
-                const data = await response.json();
-                const { cad } = data.ethereum;
-
-                document.getElementById("eth").textContent = cad;
-                console.log(cad);
-            }
-            getETH();
-
-            async function getSOL(){
-                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=cad");
-                const data = await response.json();
-                const { cad } = data.solana;
-                
-                document.getElementById("sol").textContent = cad;
-                console.log(cad);
-            }
-            getSOL();
             */
 
             
