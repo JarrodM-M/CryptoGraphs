@@ -19,7 +19,7 @@
             let dayz = ["1", "7", "30", "365"]
             
             
-            const xtime = [];
+            const xtimeday = [];
             const yprice = [];
             const ymarket = [];
             const yvolume = [];
@@ -31,30 +31,29 @@
 
             function changeApilink(){
                 coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + document.getElementById('chartCoinid').value + 
-                "/market_chart?vs_currency=" + currency + "&days=" + days + "&interval=" + interval;
+                "/market_chart?vs_currency=" + currency + "&days=" + document.getElementById('timebuttons').value + "&interval=" + interval;
+                console.log(coingeckoapi);
             };
 
+// Set up for day,week,month buttons
 
-        
+const dayButton = document.getElementById('daybtn');
+const weekButton = document.getElementById('weekbtn');
+const monthButton = document.getElementById('monthbtn');
+
+
+
+
+
 
          
-    // for grabbing coin ids -- future upgrade
-    /* 
-            async function listcoins(){
-                const response = await fetch (coinlist);
-                const data = await response.json();
-                console.log(data);
-            };
-            listcoins();
-    */
-
+    
             
             
     // This function grabs the Xvalues (Time) and converts it from UNIX into a readable timestamp 
     // and grabs the Y values (price, marketcap, volume ) to be used in the chartJS canvas
 
             async function graphdatafetch(){
-                await changeApilink();
                 const response = await fetch (coingeckoapi);
                 const data = await response.json();
                 const pricetable = data.prices;
@@ -65,7 +64,7 @@
                 pricetable.forEach(tnp => {
                     const time = tnp[0];
                     const fullcode = new Date(time);
-                    xtime.push(fullcode.toLocaleTimeString([], {
+                    xtimeday.push(fullcode.toLocaleTimeString([], {
                         hour12: true,
                         hour: 'numeric',
                         minute: '2-digit'
@@ -104,7 +103,7 @@
                     type: 'line',
 
                     data: {
-                        labels: xtime,
+                        labels: xtimeday,
                         datasets: [{
                             
                             label: 'Prices',
@@ -116,22 +115,63 @@
                             pointRadius: 0,
                             pointHitRadius: 10,
                             linetension: 0.2
+                        },
+                        {
+                            
+                            label: 'Market Cap',
+                            yAxisID: 'Prices',
+                            data: ymarket,
+                            borderWidth: 10,
+                            borderJoinStyle: 'round',
+                            borderCapStyle: 'round',
+                            pointRadius: 0,
+                            pointHitRadius: 10,
+                            linetension: 0.2,
+                            hidden: true
+                        },
+                        {
+                            
+                            label: 'Market Volume',
+                            yAxisID: 'Prices',
+                            data: yvolume,
+                            borderWidth: 10,
+                            borderJoinStyle: 'round',
+                            borderCapStyle: 'round',
+                            pointRadius: 0,
+                            pointHitRadius: 10,
+                            linetension: 0.2,
+                            hidden: true
                         }]
                     },
 
                     options: {
+                        
                         plugins :{
                             legend: {
                                 display: false
                             },
                             tooltip: {
-                                
+                                mode: 'index'
                             }
                         }
                                                     
                     }                               
                     
                 });
+                dayButton.addEventListener('click', changeDay);
+                weekButton.addEventListener('click', changeWeek);
+                monthButton.addEventListener('click', changeMonth);
+                function changeDay(){
+                    console.log("testday")
+                };
+                function changeWeek(){
+                    console.log("testweek")
+                };
+                function changeMonth(){
+                    console.log("testmonth")
+                };
+
+                 
             };
             cryptochart();
             
@@ -146,15 +186,17 @@
                 const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + document.getElementById('chartCoinid').value
                 + "&vs_currencies=cad");
                 const data = await response.json();
-                const cad = data;
+                const cad = Object.values(data);
+                const final = cad[0];
 
-                document.getElementById('bitcoinCurrentprice').textContent = cad;
-                console.log(data);  
+                document.getElementById('bitcoinCurrentprice').textContent = "$" + Object.values(final);
+                console.log(final);
+                  
             };
             getBTC();
             
            
-
+/*
             async function getNANO(){
                 const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=cad");
                 const data = await response.json();
@@ -175,7 +217,17 @@
                 document.getElementById("ethereumCurrentprice").textContent = cad;
                 console.log(cad);
             };
+*/
             
+// for grabbing coin ids -- future upgrade
+    /* 
+            async function listcoins(){
+                const response = await fetch (coinlist);
+                const data = await response.json();
+                console.log(data);
+            };
+            listcoins();
+    */
 
             
 

@@ -12,23 +12,29 @@
           
 
             <section>
-                <div class = "container">
-                    <select name="chartCoinid" id="chartCoinid" onchange="updatechart() , getBTC()" >
-                        <option value="bitcoin">Bitcoin</option>
-                        <option value="nano">Nano</option>
-                        <option value="ethereum">Ethereum</option>
-                      </select>
-                      <span id = bitcoinCurrentprice></span>
+                <div >
+                    <div id = "dropdown">
+                        <select name="chartCoinid" id="chartCoinid" onchange="getBTC(), changeApilink()">
+                            <option value="bitcoin">Bitcoin</option>
+                            <option value="nano">Nano</option>
+                            <option value="ethereum">Ethereum</option>
+                        </select>
+                        <span id = bitcoinCurrentprice></span>
+                    </div>
+                    <div id = "timebuttons" onclick="changeApilink()">
+                        <button id = 'daybtn' value= '1'>Day</button>
+                        <button id = 'weekbtn' value= "7">Week</button>
+                        <button id = 'monthbtn' value= '30'>Month</button>
+                    </div>  
+
                 </div>
             </section>
-
-
-                <span id = bitcoinCurrentprice></span>
                 
-                
-                <canvas id="myChart"></canvas>
+                <div class = "chart">
+                    <canvas id="myChart"></canvas>
+                </div>
                  
-            </div>
+            
             
             
         <script src="index.js"></script>

@@ -13,71 +13,9 @@ body{
     margin-left:auto;
 }
 
-h1{
-    text-align: center;
-    font-size: 250%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: tomato;
-    border: 2px solid peachpuff;
-}
-
-#nanomenu{
-    border: 2px solid rgba(255, 218, 185, 0.527);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: tomato;
-    
-    
-
-}
-
-
-#scrill{
-    grid-column: 1/4;
-}
-
-#p1{
-    grid-column: 2/3;
-}
 
 
 
 
-#ethgraph{
-    height: 200px;
-}
 
-#solgraph{
-   height: 200px;
-}
-
-#menu-ctn {
-    
-    padding-top: 0px;
-    padding-bottom: 1px;
-    padding-left: 5px;
-    padding-right: 5px;
-    transition: all 0.8s ease;
-
-}
-
-#menu-ctn:hover {
-
-    cursor: pointer;
-    background-color: rgba(255, 218, 185, 0.527);
-    
-
-}
-
-ul {
-    list-style: none;
-}
-
-#dropdown {
-    
-    display: none;
-  }
-
-#dropdown.active {
-    display:block
-}
 
