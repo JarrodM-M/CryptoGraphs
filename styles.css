@@ -1,19 +1,54 @@
 #mainGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    
 }
 
 body{
-    background-color: lightgrey;
+    background-image: linear-gradient(to bottom right, rgb(59, 1, 136), rgb(80, 0, 80));
+    background-repeat: no-repeat;
 }
 
 .container{
     max-width: 1200px;
     margin-right: auto;
     margin-left:auto;
+    
 }
 
+#timeparent{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
 
+#timebuttons{
+    
+    display: inline-flex;
+    border-radius: 10px;
+    background-color: rgba(253, 253, 253, 0.514);
+    
+}
+
+span{
+    font-style: normal;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgba(0, 238, 255, 0.712);
+}
+
+.button{
+    background-color: rgba(128, 15, 15, 0);
+    cursor: pointer;
+    color: whitesmoke;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    
+}
+
+.button:hover{
+    background-color: rgba(255,255,255,0.25);
+}
 
 
 

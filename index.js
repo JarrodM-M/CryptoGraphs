@@ -16,8 +16,9 @@
             let coinIds = ["bitcoin", "ethereum", "nano"];
             let currencies = ["cad", "usd"];
             let intervals = ["hourly", "daily", "monthly", 'yearly'];
-            let dayz = ["1", "7", "30", "365"]
-            
+            let dayz = ["1", "7", "30", "365"];
+
+            let timeView = "1"; //this is the setting for viewiing days, weeks, months
             
             const xtimeday = [];
             const yprice = [];
@@ -27,33 +28,31 @@
             const unixlink = []; // no longer needed
             const truetimearray = []; // no longer needed
 
+
+
+            
+
+           
+            
+
 // change the coingecko api link
 
-            function changeApilink(){
-                coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + document.getElementById('chartCoinid').value + 
-                "/market_chart?vs_currency=" + currency + "&days=" + document.getElementById('timebuttons').value + "&interval=" + interval;
-                console.log(coingeckoapi);
-            };
+            
 
 // Set up for day,week,month buttons
+
+const chartCoinId = document.getElementById('chartCoinid');
+
 
 const dayButton = document.getElementById('daybtn');
 const weekButton = document.getElementById('weekbtn');
 const monthButton = document.getElementById('monthbtn');
-
-
-
-
-
-
-         
-    
-            
             
     // This function grabs the Xvalues (Time) and converts it from UNIX into a readable timestamp 
     // and grabs the Y values (price, marketcap, volume ) to be used in the chartJS canvas
 
             async function graphdatafetch(){
+                await changeApilink();
                 const response = await fetch (coingeckoapi);
                 const data = await response.json();
                 const pricetable = data.prices;
@@ -84,9 +83,9 @@ const monthButton = document.getElementById('monthbtn');
                 volumetable.forEach(tnp2 => {
                     const volume = tnp2[1];
                     yvolume.push(volume);
+                    
 
                 });
-            
             };
         
         
@@ -109,38 +108,15 @@ const monthButton = document.getElementById('monthbtn');
                             label: 'Prices',
                             yAxisID: 'Prices',
                             data: yprice,
-                            borderWidth: 10,
-                            borderJoinStyle: 'round',
-                            borderCapStyle: 'round',
+                            borderWidth: 3,
+                            borderColor: 'rgba(0, 238, 255, 0.712)',
                             pointRadius: 0,
-                            pointHitRadius: 10,
-                            linetension: 0.2
-                        },
-                        {
+                            pointHitRadius: 15,
+                            lineTension: 0.5,
+                            radius: 6,
+                            borderCapStyle: 'round'
                             
-                            label: 'Market Cap',
-                            yAxisID: 'Prices',
-                            data: ymarket,
-                            borderWidth: 10,
-                            borderJoinStyle: 'round',
-                            borderCapStyle: 'round',
-                            pointRadius: 0,
-                            pointHitRadius: 10,
-                            linetension: 0.2,
-                            hidden: true
-                        },
-                        {
-                            
-                            label: 'Market Volume',
-                            yAxisID: 'Prices',
-                            data: yvolume,
-                            borderWidth: 10,
-                            borderJoinStyle: 'round',
-                            borderCapStyle: 'round',
-                            pointRadius: 0,
-                            pointHitRadius: 10,
-                            linetension: 0.2,
-                            hidden: true
+                        
                         }]
                     },
 
@@ -158,23 +134,69 @@ const monthButton = document.getElementById('monthbtn');
                     }                               
                     
                 });
+
+                chartCoinId.addEventListener('change', () => {
+                     getBTC();
+                     reload();
+                     console.log(yprice)                   
+                    });
+
                 dayButton.addEventListener('click', changeDay);
                 weekButton.addEventListener('click', changeWeek);
                 monthButton.addEventListener('click', changeMonth);
+
                 function changeDay(){
-                    console.log("testday")
+                    timeView="1";
+                    const updatetype = 'bar';
+                    myChart.config.type = updatetype;
+                    myChart.update();
+                    dayButton.style.color = 'rgba(0, 238, 255, 0.712)';
+                    weekButton.style.color = 'whitesmoke';
+                    monthButton.style.color = 'whitesmoke';
                 };
                 function changeWeek(){
-                    console.log("testweek")
+                    timeView="7";
+                    const updatetype = 'line';
+                    myChart.config.type = updatetype;
+                    myChart.update();
+                    console.log("testweek");
+                    dayButton.style.color = 'whitesmoke';
+                    weekButton.style.color = 'rgba(0, 238, 255, 0.712)';
+                    monthButton.style.color = 'whitesmoke';
+                    
                 };
                 function changeMonth(){
+                    timeView="30";
                     console.log("testmonth")
+                    dayButton.style.color = 'whitesmoke';
+                    weekButton.style.color = 'whitesmoke';
+                    monthButton.style.color = 'rgba(0, 238, 255, 0.712)'
                 };
+
+                async function destroy(){
+                    myChart.clear();
+                    myChart.destroy();   
+                };
+
+                async function reload(){
+                    await destroy();
+                    cryptochart();
+                };
+
+                
+
+                
 
                  
             };
             cryptochart();
             
+            
+            async function changeApilink(){
+                coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + document.getElementById('chartCoinid').value + 
+                "/market_chart?vs_currency=" + currency + "&days=" + timeView + "&interval=" + interval;
+                console.log(coingeckoapi);
+            };
             
             
             
@@ -190,7 +212,6 @@ const monthButton = document.getElementById('monthbtn');
                 const final = cad[0];
 
                 document.getElementById('bitcoinCurrentprice').textContent = "$" + Object.values(final);
-                console.log(final);
                   
             };
             getBTC();
