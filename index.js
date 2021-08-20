@@ -20,10 +20,10 @@
 
             let timeView = "1"; //this is the setting for viewiing days, weeks, months
             
-            const xtimeday = [];
-            const yprice = [];
-            const ymarket = [];
-            const yvolume = [];
+            let xtimeday = [];
+            let yprice = [];
+            let ymarket = [];
+            let yvolume = [];
 
             const unixlink = []; // no longer needed
             const truetimearray = []; // no longer needed
@@ -58,7 +58,10 @@ const monthButton = document.getElementById('monthbtn');
                 const pricetable = data.prices;
                 const markettable = data.market_caps;
                 const volumetable = data.total_volumes;
-                                
+                yprice = [];
+                xtimeday = [];
+                ymarket = [];
+                yvolume = [];                
 
                 pricetable.forEach(tnp => {
                     const time = tnp[0];
@@ -137,8 +140,7 @@ const monthButton = document.getElementById('monthbtn');
 
                 chartCoinId.addEventListener('change', () => {
                      getBTC();
-                     reload();
-                     console.log(yprice)                   
+                     reload();                  
                     });
 
                 dayButton.addEventListener('click', changeDay);
@@ -174,7 +176,6 @@ const monthButton = document.getElementById('monthbtn');
                 };
 
                 async function destroy(){
-                    myChart.clear();
                     myChart.destroy();   
                 };
 
