@@ -9,7 +9,7 @@
             let currency = "cad";
             let days = "1";
             let interval = "hourly";
-            let coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + "&days=" + days + "&interval=" + interval;
+            let coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + coin + "/market_chart?vs_currency=" + currency + "&days=" + "1" + "&interval=" + interval;
             let unixapi = "https://showcase.api.linx.twenty57.net/UnixTime/fromunix?timestamp=" // no longer needed
             let coinlist ="https://api.coingecko.com/api/v3/coins/list";
             
@@ -17,6 +17,7 @@
             let currencies = ["cad", "usd"];
             let intervals = ["hourly", "daily", "monthly", 'yearly'];
             let dayz = ["1", "7", "30", "365"];
+            let graphTime = [];
 
             let timeView = "1"; //this is the setting for viewiing days, weeks, months
             
@@ -24,6 +25,7 @@
             let yprice = [];
             let ymarket = [];
             let yvolume = [];
+            let xtimeweek = [];
 
             const unixlink = []; // no longer needed
             const truetimearray = []; // no longer needed
@@ -61,7 +63,8 @@ const monthButton = document.getElementById('monthbtn');
                 yprice = [];
                 xtimeday = [];
                 ymarket = [];
-                yvolume = [];                
+                yvolume = [];
+                xtimeweek = [];                
 
                 pricetable.forEach(tnp => {
                     const time = tnp[0];
@@ -71,12 +74,19 @@ const monthButton = document.getElementById('monthbtn');
                         hour: 'numeric',
                         minute: '2-digit'
                         
-                    })); 
+                    }));
+                    xtimeweek.push(fullcode.toLocaleDateString([], {
+                        hour: "numeric",
+                        hourCycle: 'h12',
+                        weekday: 'short'
+                    }));
+                    
+                    
                     const price = tnp[1];
                     yprice.push(price);
                     
                 });
-
+                 console.log(xtimeweek)
                 markettable.forEach(tnp1 => {
                     const market = tnp1[1];
                     ymarket.push(market);
@@ -143,25 +153,34 @@ const monthButton = document.getElementById('monthbtn');
                      reload();                  
                     });
 
-                dayButton.addEventListener('click', changeDay);
-                weekButton.addEventListener('click', changeWeek);
-                monthButton.addEventListener('click', changeMonth);
+                dayButton.addEventListener('click', () => {
+                    removeData();
+                    changeDay();
+                    addDataD();
+                });
+                
+                weekButton.addEventListener('click', () => {
+                    changeWeek();
+                    graphdatafetch();
+                    updateWeek();
+                    });
+                
+                monthButton.addEventListener('click', () => {
+                    removeData();
+                    changeMonth();
+                    addDataW();
+
+                });
 
                 function changeDay(){
                     timeView="1";
-                    const updatetype = 'bar';
-                    myChart.config.type = updatetype;
-                    myChart.update();
                     dayButton.style.color = 'rgba(0, 238, 255, 0.712)';
                     weekButton.style.color = 'whitesmoke';
                     monthButton.style.color = 'whitesmoke';
                 };
                 function changeWeek(){
                     timeView="7";
-                    const updatetype = 'line';
-                    myChart.config.type = updatetype;
-                    myChart.update();
-                    console.log("testweek");
+                    interval="daily" 
                     dayButton.style.color = 'whitesmoke';
                     weekButton.style.color = 'rgba(0, 238, 255, 0.712)';
                     monthButton.style.color = 'whitesmoke';
@@ -169,10 +188,41 @@ const monthButton = document.getElementById('monthbtn');
                 };
                 function changeMonth(){
                     timeView="30";
-                    console.log("testmonth")
+                    interval='daily'
                     dayButton.style.color = 'whitesmoke';
                     weekButton.style.color = 'whitesmoke';
                     monthButton.style.color = 'rgba(0, 238, 255, 0.712)'
+                };
+
+                function addDataW(chart, label, data) {
+                    myChart.data.labels.push(xtimeweek);
+                    myChart.data.datasets.forEach((dataset) => {
+                        dataset.data.push(yprice);
+                    });
+                    myChart.update();
+                };
+
+                async function addDataD(chart, label, data) {
+                    await graphdatafetch();
+                    myChart.data.labels.push(xtimeday);
+                    myChart.data.datasets.forEach((dataset) => {
+                        dataset.data.push(yprice);
+                    });
+                    myChart.update();
+                };
+                
+                function removeData() {
+                    myChart.data.labels.pop();
+                    myChart.data.datasets.forEach((dataset) => {
+                        dataset.data.pop();
+                    });
+                    myChart.update();
+                };
+                
+
+                function updateWeek(){
+                    myChart.data.labels.push(xtimeweek);
+                    myChart.update();
                 };
 
                 async function destroy(){
@@ -182,12 +232,7 @@ const monthButton = document.getElementById('monthbtn');
                 async function reload(){
                     await destroy();
                     cryptochart();
-                };
-
-                
-
-                
-
+                }
                  
             };
             cryptochart();
