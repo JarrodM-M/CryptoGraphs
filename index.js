@@ -101,10 +101,8 @@ const monthButton = document.getElementById('monthbtn');
                 });
             };
         
-        
-            
-
-            
+       
+         
             
     // this is the chartjs function
              async function cryptochart(){
@@ -167,8 +165,8 @@ const monthButton = document.getElementById('monthbtn');
                 
                 monthButton.addEventListener('click', () => {
                     removeData();
-                    changeMonth();
-                    addDataW();
+                    
+                    
 
                 });
 
@@ -178,9 +176,11 @@ const monthButton = document.getElementById('monthbtn');
                     weekButton.style.color = 'whitesmoke';
                     monthButton.style.color = 'whitesmoke';
                 };
-                function changeWeek(){
+                async function changeWeek(){
                     timeView="7";
-                    interval="daily" 
+                    interval="daily"
+                    await graphdatafetch();
+                    timeGraph= xtimeweek 
                     dayButton.style.color = 'whitesmoke';
                     weekButton.style.color = 'rgba(0, 238, 255, 0.712)';
                     monthButton.style.color = 'whitesmoke';
@@ -211,11 +211,19 @@ const monthButton = document.getElementById('monthbtn');
                     myChart.update();
                 };
                 
+                let emptyArray = [];
+
                 function removeData() {
-                    myChart.data.labels.pop();
-                    myChart.data.datasets.forEach((dataset) => {
-                        dataset.data.pop();
+                
+                    console.log(myChart.data.datasets);
+                    console.log(myChart.data.datasets.data);
+
+                    myChart.data.labels.pop(emptyArray);
+                    delete myChart.data.datasets.data;
+                   /* myChart.data.datasets.forEach((x) => {
+                        x.pop();
                     });
+                    */
                     myChart.update();
                 };
                 
