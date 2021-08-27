@@ -26,6 +26,7 @@
             let ymarket = [];
             let yvolume = [];
             let xtimeweek = [];
+            let xtimemonth = [];
 
             const unixlink = []; // no longer needed
             const truetimearray = []; // no longer needed
@@ -49,6 +50,7 @@ const chartCoinId = document.getElementById('chartCoinid');
 const dayButton = document.getElementById('daybtn');
 const weekButton = document.getElementById('weekbtn');
 const monthButton = document.getElementById('monthbtn');
+
             
     // This function grabs the Xvalues (Time) and converts it from UNIX into a readable timestamp 
     // and grabs the Y values (price, marketcap, volume ) to be used in the chartJS canvas
@@ -64,7 +66,8 @@ const monthButton = document.getElementById('monthbtn');
                 xtimeday = [];
                 ymarket = [];
                 yvolume = [];
-                xtimeweek = [];                
+                xtimeweek = []; 
+                xtimemonth = [];               
 
                 pricetable.forEach(tnp => {
                     const time = tnp[0];
@@ -76,9 +79,13 @@ const monthButton = document.getElementById('monthbtn');
                         
                     }));
                     xtimeweek.push(fullcode.toLocaleDateString([], {
-                        hour: "numeric",
+                        hour: 'numeric',
                         hourCycle: 'h12',
                         weekday: 'short'
+                    }));
+                    xtimemonth.push(fullcode.toLocaleDateString([], {
+                        month: 'short',
+                        day: 'numeric'
                     }));
                     
                     
@@ -86,7 +93,7 @@ const monthButton = document.getElementById('monthbtn');
                     yprice.push(price);
                     
                 });
-                 console.log(xtimeweek)
+
                 markettable.forEach(tnp1 => {
                     const market = tnp1[1];
                     ymarket.push(market);
@@ -105,6 +112,7 @@ const monthButton = document.getElementById('monthbtn');
          
             
     // this is the chartjs function
+
              async function cryptochart(){
                 await graphdatafetch(); 
                 var ctx = document.getElementById('myChart').getContext('2d');
@@ -114,6 +122,110 @@ const monthButton = document.getElementById('monthbtn');
 
                     data: {
                         labels: xtimeday,
+                        datasets: [{
+                            
+                            label: 'Prices',
+                            yAxisID: 'Prices',
+                            data: yprice,
+                            borderWidth: 3,
+                            borderColor: 'rgba(0, 238, 255, 0.712)',
+                            pointRadius: 0,
+                            pointHitRadius: 15,
+                            lineTension: 0.5,
+                            radius: 6,
+                            borderCapStyle: 'round'
+                        }]
+                    },
+
+                    options: {
+                        
+                        plugins :{
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                mode: 'index'
+                            }
+                        }
+                                                    
+                    }                               
+                });
+
+                chartCoinId.addEventListener('change', () => {
+                     getBTC();
+                     reload();                  
+                });
+
+                dayButton.addEventListener('click', () => {
+                    changeDay();
+                    reload();
+                });
+                
+                weekButton.addEventListener('click', () => {
+                    changeWeek();
+                    reload2();
+                });
+                
+                monthButton.addEventListener('click', () => {
+                    changeMonth();
+                    reload3();
+                });
+
+                function changeDay(){
+                    timeView = '1';
+                    interval = 'hourly';
+                    graphTime = xtimeday;
+                    dayButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                    weekButton.style.background = 'rgba(128, 15, 15, 0)';
+                    monthButton.style.background = 'rgba(128, 15, 15, 0)';
+                };
+                async function changeWeek(){
+                    timeView= '7';
+                    interval= 'daily';
+                    graphTime = xtimeweek; 
+                    dayButton.style.background = 'rgba(128, 15, 15, 0)';
+                    weekButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                    monthButton.style.background = 'rgba(128, 15, 15, 0)';
+                    
+                };
+                function changeMonth(){
+                    timeView = '30';
+                    interval = 'daily';
+                    graphTime = xtimemonth;
+                    dayButton.style.background = 'rgba(128, 15, 15, 0)';
+                    weekButton.style.background = 'rgba(128, 15, 15, 0)';
+                    monthButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                };
+
+                async function destroy(){
+                    myChart.destroy();   
+                };
+
+                async function reload(){
+                    await destroy();
+                    cryptochart();
+                };
+
+                async function reload2(){
+                    await destroy();
+                    cryptochart2();
+                };
+                async function reload3(){
+                    await destroy();
+                    cryptochart3();
+                };
+            };
+            cryptochart();
+
+            async function cryptochart2(){
+                await graphdatafetch(); 
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx,  {
+                    
+                    type: 'line',
+
+                    data: {
+                        labels: xtimeweek,
                         datasets: [{
                             
                             label: 'Prices',
@@ -143,109 +255,202 @@ const monthButton = document.getElementById('monthbtn');
                         }
                                                     
                     }                               
-                    
                 });
 
                 chartCoinId.addEventListener('change', () => {
-                     getBTC();
-                     reload();                  
-                    });
+                    getBTC();
+                    reload();                  
+                });
 
                 dayButton.addEventListener('click', () => {
-                    removeData();
                     changeDay();
-                    addDataD();
+                    reload();
                 });
                 
                 weekButton.addEventListener('click', () => {
                     changeWeek();
-                    graphdatafetch();
-                    updateWeek();
-                    });
+                    reload2();
+                });
                 
                 monthButton.addEventListener('click', () => {
-                    removeData();
-                    
-                    
-
+                    changeMonth();
+                    reload3();
                 });
 
                 function changeDay(){
-                    timeView="1";
-                    dayButton.style.color = 'rgba(0, 238, 255, 0.712)';
-                    weekButton.style.color = 'whitesmoke';
-                    monthButton.style.color = 'whitesmoke';
+                    timeView = '1';
+                    interval = 'hourly';
+                    graphTime = xtimeday;
+                    dayButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                    weekButton.style.background = 'rgba(128, 15, 15, 0)';
+                    monthButton.style.background = 'rgba(128, 15, 15, 0)';
                 };
                 async function changeWeek(){
-                    timeView="7";
-                    interval="daily"
-                    await graphdatafetch();
-                    timeGraph= xtimeweek 
-                    dayButton.style.color = 'whitesmoke';
-                    weekButton.style.color = 'rgba(0, 238, 255, 0.712)';
-                    monthButton.style.color = 'whitesmoke';
+                    timeView= '7';
+                    interval= 'daily';
+                    graphTime = xtimeweek; 
+                    dayButton.style.background = 'rgba(128, 15, 15, 0)';
+                    weekButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                    monthButton.style.background = 'rgba(128, 15, 15, 0)';
                     
                 };
                 function changeMonth(){
-                    timeView="30";
-                    interval='daily'
-                    dayButton.style.color = 'whitesmoke';
-                    weekButton.style.color = 'whitesmoke';
-                    monthButton.style.color = 'rgba(0, 238, 255, 0.712)'
-                };
-
-                function addDataW(chart, label, data) {
-                    myChart.data.labels.push(xtimeweek);
-                    myChart.data.datasets.forEach((dataset) => {
-                        dataset.data.push(yprice);
-                    });
-                    myChart.update();
-                };
-
-                async function addDataD(chart, label, data) {
-                    await graphdatafetch();
-                    myChart.data.labels.push(xtimeday);
-                    myChart.data.datasets.forEach((dataset) => {
-                        dataset.data.push(yprice);
-                    });
-                    myChart.update();
-                };
-                
-                let emptyArray = [];
-
-                function removeData() {
-                
-                    console.log(myChart.data.datasets);
-                    console.log(myChart.data.datasets.data);
-
-                    myChart.data.labels.pop(emptyArray);
-                    delete myChart.data.datasets.data;
-                   /* myChart.data.datasets.forEach((x) => {
-                        x.pop();
-                    });
-                    */
-                    myChart.update();
-                };
-                
-
-                function updateWeek(){
-                    myChart.data.labels.push(xtimeweek);
-                    myChart.update();
+                    timeView = '30';
+                    interval = 'daily';
+                    graphTime = xtimemonth;
+                    dayButton.style.background = 'rgba(128, 15, 15, 0)';
+                    weekButton.style.background = 'rgba(128, 15, 15, 0)';
+                    monthButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
                 };
 
                 async function destroy(){
-                    myChart.destroy();   
+                   myChart.destroy();   
                 };
 
                 async function reload(){
                     await destroy();
                     cryptochart();
-                }
-                 
+                };
+
+                async function reload2(){
+                   await destroy();
+                   cryptochart2();
+                };
+
+                async function reload3(){
+                    await destroy();
+                    cryptochart3();
+                };
             };
-            cryptochart();
+
+            async function cryptochart3(){
+                await graphdatafetch(); 
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx,  {
+                    
+                    type: 'line',
+
+                    data: {
+                        labels: graphTime,
+                        datasets: [{
+                            
+                            label: 'Prices',
+                            yAxisID: 'Prices',
+                            data: yprice,
+                            borderWidth: 3,
+                            borderColor: 'rgba(0, 238, 255, 0.712)',
+                            pointRadius: 0,
+                            pointHitRadius: 15,
+                            lineTension: 0.5,
+                            radius: 6,
+                            borderCapStyle: 'round'
+                            
+                        
+                        }]
+                    },
+
+                    options: {
+                        
+                        plugins :{
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                mode: 'index'
+                            }
+                        }
+                                                    
+                    }                               
+                });
+
+                chartCoinId.addEventListener('change', () => {
+                    getBTC();
+                    reload();                  
+                });
+
+                dayButton.addEventListener('click', () => {
+                   changeDay();
+                   reload();
+                });
+               
+                weekButton.addEventListener('click', () => {
+                   changeWeek();
+                   reload2();
+                });
+               
+                monthButton.addEventListener('click', () => {
+                   changeMonth();
+                   reload3();
+                });
+                chartCoinId.addEventListener('change', () => {
+                    getBTC();
+                    reload();                  
+                });
+
+                dayButton.addEventListener('click', () => {
+                    changeDay();
+                    reload();
+                });
+                
+                weekButton.addEventListener('click', () => {
+                    changeWeek();
+                    reload2();
+                });
+                
+                monthButton.addEventListener('click', () => {
+                    changeMonth();
+                    reload3();
+                });
+
+                function changeDay(){
+                    timeView = '1';
+                    interval = 'hourly';
+                    graphTime = xtimeday;
+                    dayButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                    weekButton.style.background = 'rgba(128, 15, 15, 0)';
+                    monthButton.style.background = 'rgba(128, 15, 15, 0)';
+                };
+                async function changeWeek(){
+                    timeView= '7';
+                    interval= 'daily';
+                    graphTime = xtimeweek; 
+                    dayButton.style.background = 'rgba(128, 15, 15, 0)';
+                    weekButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                    monthButton.style.background = 'rgba(128, 15, 15, 0)';
+                    
+                };
+                function changeMonth(){
+                    timeView = '30';
+                    interval = 'daily';
+                    graphTime = xtimemonth;
+                    dayButton.style.background = 'rgba(128, 15, 15, 0)';
+                    weekButton.style.background = 'rgba(128, 15, 15, 0)';
+                    monthButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
+                };
+
+                async function destroy(){
+                   myChart.destroy();   
+                };
+
+                async function reload(){
+                    await destroy();
+                    cryptochart();
+                };
+
+                async function reload2(){
+                   await destroy();
+                   cryptochart2();
+                };
+
+                async function reload3(){
+                    await destroy();
+                    cryptochart3();
+                };
+            };
             
+
             
+     // this function changes the api link for the graphfetchdata function so it will get the correct information from the coingecko api for chart js to draw        
             async function changeApilink(){
                 coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + document.getElementById('chartCoinid').value + 
                 "/market_chart?vs_currency=" + currency + "&days=" + timeView + "&interval=" + interval;
