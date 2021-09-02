@@ -4,28 +4,26 @@
     
 }
 
-body{
-    height: 100%;
+html{
+    min-height: 100%;
     background-image: linear-gradient(to bottom right, rgb(59, 1, 136), rgb(80, 0, 80));
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
      background-size: cover;
+     background-repeat: no-repeat;
 }
+
 
 .chart{
     width: 100%;
 }
 
-.container{
-    max-width: 960px;
-    margin-right: auto;
-    margin-left:auto;
-}
+
 
 #coinContainer{
     display:flex;
-    padding: 25px;
+    justify-content: left;
 }
 
 select{
@@ -43,8 +41,7 @@ select{
 }
 
 #dropdown{
-    padding: 5px;
-    padding-top: 25px;
+    justify-content: center;
     
 }
 
@@ -94,7 +91,7 @@ span{
 }
 
 @media only screen and (min-width: 1200px){
-    .chart{
+    .container{
         width: 80%;
         max-width: 3000px
     }

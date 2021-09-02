@@ -119,6 +119,7 @@ const monthButton = document.getElementById('monthbtn');
                 var myChart = new Chart(ctx,  {
                     
                     type: 'line',
+                    color: 'whitesmoke',
 
                     data: {
                         labels: xtimeday,
@@ -133,7 +134,8 @@ const monthButton = document.getElementById('monthbtn');
                             pointHitRadius: 15,
                             lineTension: 0.5,
                             radius: 6,
-                            borderCapStyle: 'round'
+                            borderCapStyle: 'round',
+                            
                         }]
                     },
 
@@ -237,7 +239,8 @@ const monthButton = document.getElementById('monthbtn');
                             pointHitRadius: 15,
                             lineTension: 0.5,
                             radius: 6,
-                            borderCapStyle: 'round'
+                            borderCapStyle: 'round',
+                            color: 'whitesmoke'
                             
                         
                         }]
@@ -331,7 +334,7 @@ const monthButton = document.getElementById('monthbtn');
                     type: 'line',
 
                     data: {
-                        labels: graphTime,
+                        labels: xtimemonth,
                         datasets: [{
                             
                             label: 'Prices',
@@ -343,7 +346,8 @@ const monthButton = document.getElementById('monthbtn');
                             pointHitRadius: 15,
                             lineTension: 0.5,
                             radius: 6,
-                            borderCapStyle: 'round'
+                            borderCapStyle: 'round',
+                            color: 'whitesmoke'
                             
                         
                         }]
