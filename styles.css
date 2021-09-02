@@ -5,8 +5,16 @@
 }
 
 body{
+    height: 100%;
     background-image: linear-gradient(to bottom right, rgb(59, 1, 136), rgb(80, 0, 80));
-    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+     background-size: cover;
+}
+
+.chart{
+    width: 100%;
 }
 
 .container{
@@ -85,9 +93,10 @@ span{
     background-color: rgba(255,255,255,0.25);
 }
 
-@media only screen and (max-width: 600px){
-    body{
-        background-image: linear-gradient(to bottom right, rgb(96, 70, 131), rgb(80, 0, 80));
+@media only screen and (min-width: 1200px){
+    .chart{
+        width: 80%;
+        max-width: 3000px
     }
 }
 
