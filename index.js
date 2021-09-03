@@ -108,8 +108,7 @@ const monthButton = document.getElementById('monthbtn');
             async function cryptochart(){   // This is the chart.js config 
                 await graphdatafetch(); 
                 const ctx = document.getElementById('myChart').getContext('2d');
-                Chart.defaults.color='whitesmoke';
-                
+                Chart.defaults.color='rgba(255,255,255,0.6)';
                 let myChart = new Chart(ctx,  {
                     
                     type: 'line',
@@ -118,7 +117,7 @@ const monthButton = document.getElementById('monthbtn');
                         labels: xtimeday,
                         datasets: [{
                             
-                            label: 'Prices',
+                            label: '',
                             yAxisID: 'Prices',
                             data: yprice,
                             borderWidth: 3,
@@ -139,7 +138,31 @@ const monthButton = document.getElementById('monthbtn');
                                 display: false
                             },
                             tooltip: {
-                                mode: 'index'
+                                mode: 'index',
+                                displayColors: false,
+                                backgroundColor: 'rgba(20, 1, 43, 0.61)',
+                                bodySpacing: '4',
+                                titleFont:{
+                                    size: 14,
+                                    family: "'Exo 2', sans-serif"
+                                },
+                                bodyFont: {
+                                    size: 16,
+                                    family: "'Exo 2', sans-serif"
+                                },
+                                callbacks: {
+                                    label: function(context) {
+                                        var label = context.dataset.label || '';
+                
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                        }
+                                        return label;
+                                    }
+                                }
                             }
                         }
                                                     
@@ -216,8 +239,9 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart2(){
                 await graphdatafetch(); 
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx,  {
+                const ctx = document.getElementById('myChart').getContext('2d');
+                Chart.defaults.color='rgba(255,255,255,0.6)';
+                let myChart = new Chart(ctx,  {
                     
                     type: 'line',
 
@@ -225,7 +249,7 @@ const monthButton = document.getElementById('monthbtn');
                         labels: xtimeweek,
                         datasets: [{
                             
-                            label: 'Prices',
+                            label: '',
                             yAxisID: 'Prices',
                             data: yprice,
                             borderWidth: 3,
@@ -247,7 +271,31 @@ const monthButton = document.getElementById('monthbtn');
                                 display: false
                             },
                             tooltip: {
-                                mode: 'index'
+                                mode: 'index',
+                                displayColors: false,
+                                backgroundColor: 'rgba(20, 1, 43, 0.61)',
+                                bodySpacing: '4',
+                                titleFont:{
+                                    size: 14,
+                                    family: "'Exo 2', sans-serif"
+                                },
+                                bodyFont: {
+                                    size: 16,
+                                    family: "'Exo 2', sans-serif"
+                                },
+                                callbacks: {
+                                    label: function(context) {
+                                        var label = context.dataset.label || '';
+                
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                        }
+                                        return label;
+                                    }
+                                }
                             }
                         }
                     }                               
@@ -322,8 +370,9 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart3(){
                 await graphdatafetch(); 
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx,  {
+                const ctx = document.getElementById('myChart').getContext('2d');
+                Chart.defaults.color='rgba(255,255,255,0.6)';
+                let myChart = new Chart(ctx,  {
                     
                     type: 'line',
 
@@ -331,7 +380,7 @@ const monthButton = document.getElementById('monthbtn');
                         labels: xtimemonth,
                         datasets: [{
                             
-                            label: 'Prices',
+                            label: '',
                             yAxisID: 'Prices',
                             data: yprice,
                             borderWidth: 3,
@@ -354,7 +403,31 @@ const monthButton = document.getElementById('monthbtn');
                                 display: false
                             },
                             tooltip: {
-                                mode: 'index'
+                                mode: 'index',
+                                displayColors: false,
+                                backgroundColor: 'rgba(20, 1, 43, 0.61)',
+                                bodySpacing: '4',
+                                titleFont:{
+                                    size: 14,
+                                    family: "'Exo 2', sans-serif"
+                                },
+                                bodyFont: {
+                                    size: 16,
+                                    family: "'Exo 2', sans-serif"
+                                },
+                                callbacks: {
+                                    label: function(context) {
+                                        var label = context.dataset.label || '';
+                
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                        }
+                                        return label;
+                                    }
+                                }
                             }
                         }
                                                     
