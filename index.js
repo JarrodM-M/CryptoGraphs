@@ -3,6 +3,7 @@
 
 
 
+
             
             
             let coin = "nano";
@@ -106,8 +107,10 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart(){   // This is the chart.js config 
                 await graphdatafetch(); 
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx,  {
+                const ctx = document.getElementById('myChart').getContext('2d');
+                Chart.defaults.color='whitesmoke';
+                
+                let myChart = new Chart(ctx,  {
                     
                     type: 'line',
                     
@@ -142,6 +145,7 @@ const monthButton = document.getElementById('monthbtn');
                                                     
                     }                               
                 });
+                
 
                 function changeDay(){
                     timeView = '1';
@@ -238,7 +242,6 @@ const monthButton = document.getElementById('monthbtn');
                     },
 
                     options: {
-                        
                         plugins :{
                             legend: {
                                 display: false
@@ -247,7 +250,6 @@ const monthButton = document.getElementById('monthbtn');
                                 mode: 'index'
                             }
                         }
-                                                    
                     }                               
                 });
                 
