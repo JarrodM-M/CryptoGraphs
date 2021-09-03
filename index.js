@@ -153,7 +153,7 @@ const monthButton = document.getElementById('monthbtn');
                 };
                 async function changeWeek(){
                     timeView= '7';
-                    interval= 'daily';
+                    interval= 'hourly';
                     graphTime = xtimeweek; 
                     dayButton.style.background = 'rgba(128, 15, 15, 0)';
                     weekButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
@@ -261,7 +261,7 @@ const monthButton = document.getElementById('monthbtn');
                 };
                 async function changeWeek(){
                     timeView= '7';
-                    interval= 'daily';
+                    interval= 'hourly';
                     graphTime = xtimeweek; 
                     dayButton.style.background = 'rgba(128, 15, 15, 0)';
                     weekButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
@@ -369,7 +369,7 @@ const monthButton = document.getElementById('monthbtn');
                 };
                 async function changeWeek(){
                     timeView= '7';
-                    interval= 'daily';
+                    interval= 'hourly';
                     graphTime = xtimeweek; 
                     dayButton.style.background = 'rgba(128, 15, 15, 0)';
                     weekButton.style.background = 'linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5))';
