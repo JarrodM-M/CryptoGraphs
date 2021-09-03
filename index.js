@@ -28,22 +28,6 @@
             let xtimeweek = [];
             let xtimemonth = [];
 
-            const unixlink = []; // no longer needed
-            const truetimearray = []; // no longer needed
-
-
-
-            
-
-           
-            
-
-// change the coingecko api link
-
-            
-
-// Set up for day,week,month buttons
-
 const chartCoinId = document.getElementById('chartCoinid');
 
 
@@ -52,16 +36,16 @@ const weekButton = document.getElementById('weekbtn');
 const monthButton = document.getElementById('monthbtn');
 
             
-    // This function grabs the Xvalues (Time) and converts it from UNIX into a readable timestamp 
+     
     // and grabs the Y values (price, marketcap, volume ) to be used in the chartJS canvas
 
-            async function graphdatafetch(){
-                await changeApilink();
-                const response = await fetch (coingeckoapi);
+            async function graphdatafetch(){                     // This function fetches data from an API to be used on the graph. 
+                await changeApilink();                           // It returns the UNIX string (time data) as a language sensitive, readable date that will be used on the graph. 
+                const response = await fetch (coingeckoapi);     
                 const data = await response.json();
-                const pricetable = data.prices;
-                const markettable = data.market_caps;
-                const volumetable = data.total_volumes;
+                const price = data.prices;
+                const market = data.market_caps;
+                const volume = data.total_volumes;
                 yprice = [];
                 xtimeday = [];
                 ymarket = [];
@@ -69,7 +53,7 @@ const monthButton = document.getElementById('monthbtn');
                 xtimeweek = []; 
                 xtimemonth = [];               
 
-                pricetable.forEach(tnp => {
+                price.forEach(tnp => {
                     const time = tnp[0];
                     const fullcode = new Date(time);
                     xtimeday.push(fullcode.toLocaleTimeString([], {
@@ -94,33 +78,49 @@ const monthButton = document.getElementById('monthbtn');
                     
                 });
 
-                markettable.forEach(tnp1 => {
+                market.forEach(tnp1 => {
                     const market = tnp1[1];
                     ymarket.push(market);
 
                 });
                 
-                volumetable.forEach(tnp2 => {
+                volume.forEach(tnp2 => {
                     const volume = tnp2[1];
                     yvolume.push(volume);
                     
 
                 });
             };
-        
-       
-         
-            
-    // this is the chartjs function
 
-             async function cryptochart(){
+            // This function is used to when new data needs to be fetched from the API. It selects the API address to be pinged based on user's selection          
+            async function changeApilink(){
+                coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + document.getElementById('chartCoinid').value + 
+                "/market_chart?vs_currency=" + currency + "&days=" + timeView + "&interval=" + interval;
+                console.log(coingeckoapi);
+            };
+
+            // This functions fetches the price of the selected currency         
+            async function getCoinprice(){
+                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + document.getElementById('chartCoinid').value
+                + "&vs_currencies=cad");
+                const data = await response.json();
+                const cad = Object.values(data);
+                const final = cad[0];
+
+                document.getElementById('bitcoinCurrentprice').textContent = "$" + Object.values(final);
+            };
+            getCoinprice();
+            
+
+
+
+             async function cryptochart(){     // This is the chart.js config 
                 await graphdatafetch(); 
                 var ctx = document.getElementById('myChart').getContext('2d');
                 var myChart = new Chart(ctx,  {
                     
                     type: 'line',
-                    color: 'whitesmoke',
-
+                    
                     data: {
                         labels: xtimeday,
                         datasets: [{
@@ -151,26 +151,6 @@ const monthButton = document.getElementById('monthbtn');
                         }
                                                     
                     }                               
-                });
-
-                chartCoinId.addEventListener('change', () => {
-                     getBTC();
-                     reload();                  
-                });
-
-                dayButton.addEventListener('click', () => {
-                    changeDay();
-                    reload();
-                });
-                
-                weekButton.addEventListener('click', () => {
-                    changeWeek();
-                    reload2();
-                });
-                
-                monthButton.addEventListener('click', () => {
-                    changeMonth();
-                    reload3();
                 });
 
                 function changeDay(){
@@ -216,6 +196,26 @@ const monthButton = document.getElementById('monthbtn');
                     await destroy();
                     cryptochart3();
                 };
+                
+                chartCoinId.addEventListener('change', () => {  // This 
+                    getCoinprice();
+                    reload();                  
+               });
+
+               dayButton.addEventListener('click', () => {
+                   changeDay();
+                   reload();
+               });
+               
+               weekButton.addEventListener('click', () => {
+                   changeWeek();
+                   reload2();
+               });
+               
+               monthButton.addEventListener('click', () => {
+                   changeMonth();
+                   reload3();
+               });
             };
             cryptochart();
 
@@ -259,27 +259,7 @@ const monthButton = document.getElementById('monthbtn');
                                                     
                     }                               
                 });
-
-                chartCoinId.addEventListener('change', () => {
-                    getBTC();
-                    reload();                  
-                });
-
-                dayButton.addEventListener('click', () => {
-                    changeDay();
-                    reload();
-                });
                 
-                weekButton.addEventListener('click', () => {
-                    changeWeek();
-                    reload2();
-                });
-                
-                monthButton.addEventListener('click', () => {
-                    changeMonth();
-                    reload3();
-                });
-
                 function changeDay(){
                     timeView = '1';
                     interval = 'hourly';
@@ -324,6 +304,26 @@ const monthButton = document.getElementById('monthbtn');
                     await destroy();
                     cryptochart3();
                 };
+
+                chartCoinId.addEventListener('change', () => {
+                    getCoinprice();
+                    reload2();                  
+                });
+
+                dayButton.addEventListener('click', () => {
+                    changeDay();
+                    reload();
+                });
+                
+                weekButton.addEventListener('click', () => {
+                    changeWeek();
+                    reload2();
+                });
+                
+                monthButton.addEventListener('click', () => {
+                    changeMonth();
+                    reload3();
+                });
             };
 
             async function cryptochart3(){
@@ -366,46 +366,7 @@ const monthButton = document.getElementById('monthbtn');
                                                     
                     }                               
                 });
-
-                chartCoinId.addEventListener('change', () => {
-                    getBTC();
-                    reload();                  
-                });
-
-                dayButton.addEventListener('click', () => {
-                   changeDay();
-                   reload();
-                });
-               
-                weekButton.addEventListener('click', () => {
-                   changeWeek();
-                   reload2();
-                });
-               
-                monthButton.addEventListener('click', () => {
-                   changeMonth();
-                   reload3();
-                });
-                chartCoinId.addEventListener('change', () => {
-                    getBTC();
-                    reload();                  
-                });
-
-                dayButton.addEventListener('click', () => {
-                    changeDay();
-                    reload();
-                });
-                
-                weekButton.addEventListener('click', () => {
-                    changeWeek();
-                    reload2();
-                });
-                
-                monthButton.addEventListener('click', () => {
-                    changeMonth();
-                    reload3();
-                });
-
+             
                 function changeDay(){
                     timeView = '1';
                     interval = 'hourly';
@@ -450,35 +411,38 @@ const monthButton = document.getElementById('monthbtn');
                     await destroy();
                     cryptochart3();
                 };
+                
+                chartCoinId.addEventListener('change', () => {
+                    getCoinprice();
+                    reload3();                  
+                });
+
+                dayButton.addEventListener('click', () => {
+                   changeDay();
+                   reload();
+                });
+               
+                weekButton.addEventListener('click', () => {
+                   changeWeek();
+                   reload2();
+                });
+               
+                monthButton.addEventListener('click', () => {
+                   changeMonth();
+                   reload3();
+                });
             };
             
 
             
-     // this function changes the api link for the graphfetchdata function so it will get the correct information from the coingecko api for chart js to draw        
-            async function changeApilink(){
-                coingeckoapi = "https://api.coingecko.com/api/v3/coins/" + document.getElementById('chartCoinid').value + 
-                "/market_chart?vs_currency=" + currency + "&days=" + timeView + "&interval=" + interval;
-                console.log(coingeckoapi);
-            };
+     
             
             
             
                 
 
 
-    // these functions grab the current price of each currency and send assign it an elementID to be used in the html        
-            async function getBTC(){
-                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + document.getElementById('chartCoinid').value
-                + "&vs_currencies=cad");
-                const data = await response.json();
-                const cad = Object.values(data);
-                const final = cad[0];
-
-                document.getElementById('bitcoinCurrentprice').textContent = "$" + Object.values(final);
-                  
-            };
-            getBTC();
-            
+    
            
 /*
             async function getNANO(){

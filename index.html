@@ -2,43 +2,37 @@
 <html lang="en">
     
     <head>
-        
         <link rel="stylesheet" href="styles.css">
-
     </head>
    
     <body>
-            
-          
-
-            <section>
-                <div class = 'container'>
-                    <div id = 'coinContainer'>
-                        <div id = 'coinimage'>
-                            <img src=".\img\bitcoin.png" width="48" height="48"></img>
-                        </div>
-                        <div id = 'dropdown'>
-                            <select name= 'chartCoinid' id= 'chartCoinid' >
-                                <option value= 'bitcoin'> Bitcoin </option>
-                                <option value= 'nano'> Nano </option>
-                                <option value= 'ethereum'> Ethereum </option>
-                            </select>
-                            <span id = bitcoinCurrentprice></span>
-                        </div>
-                    </div>
-
-                        <div id = 'timeparent'>
-                            <div id = 'timebuttons'>
-                                <button class = 'button' id = 'daybtn' value= "1">Day</button>
-                                <button class = 'button' id = 'weekbtn' value= "7">Week</button>
-                                <button class = 'button' id = 'monthbtn' value= "30">Month</button>
-                            </div>  
-                        </div>
-                    <div class = 'chart'>
-                            <canvas id= 'myChart'></canvas>
-                    </div>
+        <section>
+            <div id = 'coinContainer'>
+                <div id = 'coinimage'>
+                    <img src=".\img\bitcoin.png" width="48" height="48"></img>
                 </div>
-            </section>
+                <div id = 'dropdown'>
+                    <select name= 'chartCoinid' id= 'chartCoinid' >
+                        <option value= 'bitcoin'> Bitcoin </option>
+                        <option value= 'nano'> Nano </option>
+                        <option value= 'ethereum'> Ethereum </option>
+                    </select>
+                    <span id = bitcoinCurrentprice></span>
+                </div>
+            </div>
+            <div id = 'chartChange'>
+                <div id = 'timeparent'>
+                    <div id = 'timebuttons'>
+                        <button class = 'button' id = 'daybtn' value= "1">DAY</button>
+                        <button class = 'button' id = 'weekbtn' value= "7">WEEK</button>
+                        <button class = 'button' id = 'monthbtn' value= "30">MONTH</button>
+                    </div>  
+                </div>
+                <div class = 'chart'>
+                    <canvas id= 'myChart'></canvas>
+                </div>
+            </div>
+        </section>
                 
                 
                  
@@ -49,11 +43,5 @@
         <script src=".\node_modules\chart.js\dist\chart.js"></script>
         
         
-    <!-- Drop down Boxes underneath for Time Ref Choice (Hourly,Daily,Weekly,Monthly Yearly, and Currency Type)-->
-    <!-- Drop down boxes to select Coin1, Coin2, Coin3-->
-    <!-- Under each coin list Price(live), % Change in Price(based on Time Ref Choice), % Change in Social Volume (Time Ref), Market Cap (live),
-    Market Volume(total value of all trades based on Time Ref), Marker Dominance-->
-    <!-- graphs underneath each coin price/time. Price value min/max displayed on graph = the AVG price value over time ref period -/+ 25% -->
     </body>
-
 </html>

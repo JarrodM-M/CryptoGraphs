@@ -10,20 +10,25 @@ html{
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-     background-size: cover;
-     background-repeat: no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-font-smoothing: antialiased;
 }
-
-
-.chart{
-    width: 100%;
-}
-
 
 
 #coinContainer{
     display:flex;
-    justify-content: left;
+}
+
+#coinimage{
+    background-color: rgba(255, 255, 255, 0); 
+    border-radius: 5px; 
+}
+
+#dropdown{
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
 }
 
 select{
@@ -32,24 +37,23 @@ select{
     background-color: rgba(0, 128, 128, 0.068);
     box-shadow: -2px 2px 20px rgba(255, 251, 251, 0.404);
     padding: 5px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
     font-size: 16px;
+    width: 200px
 }
 
 .select-items{
     background-color: rgba(128, 0, 0, 0.288);
 }
 
-#dropdown{
-    justify-content: center;
-    
-}
-
-#coinimage{
-     background-color: rgba(255, 255, 255, 0); 
-     border-radius: 5px; 
-     padding: 2px;
-     display: inline-flex;
+span{
+    font-style: normal;
+    font-family:'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: whitesmoke;
+    margin-left: -85px;
 }
 
 #timeparent{
@@ -59,35 +63,33 @@ select{
 }
 
 #timebuttons{
-    
     display: inline-flex;
     border-radius: 10px;
     background-color: rgba(253, 253, 253, 0.514);
     
 }
-
-span{
-    font-style: normal;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgba(0, 238, 255, 0.712);
-}
-
 .button{
     background-color: rgba(128, 15, 15, 0);
     cursor: pointer;
     color: whitesmoke;
+    font-family:'Exo 2', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
     border: none;
     border-radius: 10px;
     padding: 5px;
-    
+}
+
+.button:hover{
+    background-color: rgba(255,255,255,0.25);
 }
 
 #daybtn{
     background-image: linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5));
 }
 
-.button:hover{
-    background-color: rgba(255,255,255,0.25);
+.chart{
+    width: 100%;
 }
 
 @media only screen and (min-width: 1200px){
