@@ -61,7 +61,7 @@ span{
 
 #timeparent{
     display: flex;
-    
+    flex-direction: row;
     justify-content: flex-end;
 }
 
