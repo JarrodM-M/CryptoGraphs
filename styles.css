@@ -91,14 +91,9 @@ span{
     background-image: linear-gradient(to bottom right, rgba(80, 0, 80,0.5), rgba(59, 1, 136,0.5));
 }
 
-
-
 @media only screen and (min-width: 1200px){
     #chartChange{
         min-width: 1200px;
         width: 80%;   
     }
 }
-
-
-
