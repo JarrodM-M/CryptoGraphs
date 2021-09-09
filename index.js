@@ -29,12 +29,23 @@
             let xtimeweek = [];
             let xtimemonth = [];
 
-            const coinLogo = document.getElementById('logo');
-            
+const coinLogo = document.getElementById('logo');            
 const chartCoinId = document.getElementById('chartCoinid');
 const dayButton = document.getElementById('daybtn');
 const weekButton = document.getElementById('weekbtn');
 const monthButton = document.getElementById('monthbtn');
+
+function mediaChange(e) {
+    if (e.matches) { // If media query matches
+      /* put in chart function for screen function*/;
+    } else {
+      /*put in chart function for mobile function*/;
+    }
+  }
+  
+let x = window.matchMedia("(max-width: 700px)")
+mediaChange(x) // Call listener function at run time
+x.addEventListener(mediaChange) // Attach listener function on state changes
 
 
             // This function is used to when new data needs to be fetched from the API. It selects the API address to be pinged based on user's selection          
