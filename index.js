@@ -108,7 +108,7 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart(){   // This is the chart.js config 
                 await graphdatafetch(); 
-                const ctx = document.getElementById('myChart').getContext('2d');
+                const ctx = document.getElementById('myChart');
                 Chart.defaults.color='rgba(255,255,255,0.6)';
                 let myChart = new Chart(ctx,  {
                     
@@ -134,7 +134,6 @@ const monthButton = document.getElementById('monthbtn');
 
                     options: {
                         
-                        maintainAspectRatio: false,
                         plugins :{
                             legend: {
                                 display: false
@@ -241,7 +240,7 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart2(){
                 await graphdatafetch(); 
-                const ctx = document.getElementById('myChart').getContext('2d');
+                const ctx = document.getElementById('myChart');
                 Chart.defaults.color='rgba(255,255,255,0.6)';
                 let myChart = new Chart(ctx,  {
                     
@@ -372,7 +371,7 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart3(){
                 await graphdatafetch(); 
-                const ctx = document.getElementById('myChart').getContext('2d');
+                const ctx = document.getElementById('myChart');
                 Chart.defaults.color='rgba(255,255,255,0.6)';
                 let myChart = new Chart(ctx,  {
                     
