@@ -134,6 +134,7 @@ const monthButton = document.getElementById('monthbtn');
 
                     options: {
                         
+                        maintainAspectRatio: false,
                         plugins :{
                             legend: {
                                 display: false
