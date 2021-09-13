@@ -94,7 +94,7 @@ const monthButton = document.getElementById('monthbtn');
                     const price = tnp[1];
                     yprice.push(price);
                 });
-
+                
                 market.forEach(tnp1 => {
                     const market = tnp1[1];
                     ymarket.push(market);
@@ -106,9 +106,13 @@ const monthButton = document.getElementById('monthbtn');
                 });
             };
 
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 238, 255, 0.5)');
+            gradient.addColorStop(1, 'rgba(0, 238, 255, 0)');
+
             async function cryptochart(){   // This is the chart.js config 
                 await graphdatafetch(); 
-                const ctx = document.getElementById('myChart');
                 Chart.defaults.color='rgba(255,255,255,0.6)';
                 let myChart = new Chart(ctx,  {
                     
@@ -128,12 +132,15 @@ const monthButton = document.getElementById('monthbtn');
                             lineTension: 0.5,
                             radius: 6,
                             borderCapStyle: 'round',
+                            color: 'whitesmoke',
+                            fill: true,
+                            backgroundColor: gradient
                             
                         }]
                     },
 
                     options: {
-                        
+                        maintainAspectRatio: false,
                         plugins :{
                             legend: {
                                 display: false
@@ -240,7 +247,6 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart2(){
                 await graphdatafetch(); 
-                const ctx = document.getElementById('myChart');
                 Chart.defaults.color='rgba(255,255,255,0.6)';
                 let myChart = new Chart(ctx,  {
                     
@@ -260,13 +266,16 @@ const monthButton = document.getElementById('monthbtn');
                             lineTension: 0.5,
                             radius: 6,
                             borderCapStyle: 'round',
-                            color: 'whitesmoke'
+                            color: 'whitesmoke',
+                            fill: true,
+                            backgroundColor: gradient
                             
                         
                         }]
                     },
 
                     options: {
+                        maintainAspectRatio: false,
                         plugins :{
                             legend: {
                                 display: false
@@ -371,7 +380,6 @@ const monthButton = document.getElementById('monthbtn');
 
             async function cryptochart3(){
                 await graphdatafetch(); 
-                const ctx = document.getElementById('myChart');
                 Chart.defaults.color='rgba(255,255,255,0.6)';
                 let myChart = new Chart(ctx,  {
                     
@@ -391,14 +399,16 @@ const monthButton = document.getElementById('monthbtn');
                             lineTension: 0.5,
                             radius: 6,
                             borderCapStyle: 'round',
-                            color: 'whitesmoke'
+                            color: 'whitesmoke',
+                            fill: true,
+                            backgroundColor: gradient
                             
                         
                         }]
                     },
 
                     options: {
-                        
+                        maintainAspectRatio: false,
                         plugins :{
                             legend: {
                                 display: false
@@ -567,7 +577,7 @@ const monthButton = document.getElementById('monthbtn');
             async function gettruetime(){
                 await converttime();
                 
-                for(let x=0; x<unixlink.length; x++){
+                for( let x=0; x<unixlink.length;x++){
                     await callunixapi(unixlink[x]);
                 };
 

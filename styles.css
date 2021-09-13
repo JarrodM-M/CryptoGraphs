@@ -19,11 +19,6 @@ body{
     height:100%;
 }
 
-section{
-    height: 100%;
-}
-
-
 #coinContainer{
     display:flex;
 }
@@ -67,8 +62,10 @@ span{
     margin-left: -85px;
 }
 
-#chartchange{
-    height: 80%;
+.chart{
+    position: relative;
+    height: 78vh;
+    max-height: 100vh;
 }
 
 #timeparent{
