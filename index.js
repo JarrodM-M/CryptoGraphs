@@ -35,6 +35,17 @@ const dayButton = document.getElementById('daybtn');
 const weekButton = document.getElementById('weekbtn');
 const monthButton = document.getElementById('monthbtn');
 
+const mediaQuery = window.matchMedia('(min-width: 768px)');
+
+            function handleMediaChange(e) {
+            if (e.matches) {
+                console.log('Media Query Matched!')
+            }
+            };
+
+            mediaQuery.addEventListener(handleMediaChange);
+                
+            handleMediaChange(mediaQuery);
 
 
 
