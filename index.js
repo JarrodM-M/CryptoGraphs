@@ -35,18 +35,17 @@ const dayButton = document.getElementById('daybtn');
 const weekButton = document.getElementById('weekbtn');
 const monthButton = document.getElementById('monthbtn');
 
-const mediaQuery = window.matchMedia('(min-width: 768px)');
-
-            function handleMediaChange(e) {
-            if (e.matches) {
-                console.log('Media Query Matched!')
-            }
-            };
-
-            mediaQuery.addEventListener(handleMediaChange);
-                
-            handleMediaChange(mediaQuery);
-
+function handleMediaChange(x) {
+    if (x.matches) { // If media query matches
+      console.log('Width is less than 700');
+    } else {
+        console.log('Width is greater than 700');
+    }
+  };
+  
+  const mediaQuery = window.matchMedia("(max-width: 700px)");
+  handleMediaChange(mediaQuery); // Call listener function at run time
+  mediaQuery.addListener(handleMediaChange) // Attach listener function on state changes
 
 
             // This function is used to when new data needs to be fetched from the API. It selects the API address to be pinged based on user's selection          
