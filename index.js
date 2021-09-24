@@ -39,7 +39,7 @@ function handleMediaChange(x) {
     if (x.matches) { // If media query matches
       console.log('Width is less than 700');
     } else {
-        console.log('Width is greater than 700');
+       console.log('Width is greater than 700');
     }
   };
   
